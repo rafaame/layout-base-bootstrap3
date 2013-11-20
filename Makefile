@@ -38,21 +38,21 @@ clean-jquery:
 clean:
 	rm -rf dist
 
-configure-bootstrap: clean-bootstrap-src
+configure-bootstrap: clean-bootstrap
 	echo "You are now going to clone Twitter's Bootstrap $(bootstrap-version) repository."
 
 	#Clone the Bootstrap repository and install the required dependencies to build it
 	cd src/vendor && git clone https://github.com/twbs/bootstrap.git bootstrap --branch v$(bootstrap-version)
 	cd src/vendor/bootstrap && npm install
 
-configure-fontawesome: clean-fontawesome-src
+configure-fontawesome: clean-fontawesome
 	echo "You are now going to clone Font-Awesome $(fontawesome-version) repository."
 
 	#Clone the Font-Awesome repository and install the required dependencies to build it
 	cd src/vendor && git clone https://github.com/FortAwesome/Font-Awesome.git font-awesome --branch v$(fontawesome-version)
 	cd src/vendor/font-awesome && bundle install && npm install
 
-configure-jquery: clean-jquery-src
+configure-jquery: clean-jquery
 	echo "You are now going to clone jQuery $(jquery-version) repository."
 
 	#Clone the jQuery repository and install the required dependencies to build it
