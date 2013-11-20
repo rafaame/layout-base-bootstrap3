@@ -33,3 +33,4 @@ node_modules
 src/vendor/bootstrap
 src/vendor/font-awesome
 src/vendor/jquery
+dist
