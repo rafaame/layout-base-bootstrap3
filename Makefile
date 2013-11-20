@@ -59,17 +59,17 @@ configure-jquery: clean-jquery
 	cd src/vendor && git clone https://github.com/jquery/jquery.git jquery --branch $(jquery-version)
 	cd src/vendor/jquery && npm install
 
-bootstrap: clean-bootstrap
+bootstrap:
 	echo "You are now going to build Twitter's Bootstrap $(bootstrap-version)."
 
 	cd src/vendor/bootstrap/ && grunt
 
-fontawesome: clean-fontawesome
+fontawesome:
 	echo "You are now going to build Font-Awesome $(fontawesome-version)."
 
 	cd src/vendor/font-awesome && bundle exec jekyll build
 
-jquery: clean-jquery
+jquery:
 	echo "You are now going to build jQuery $(jquery-version)."
 
 	cd src/vendor/jquery && grunt
