@@ -18,7 +18,7 @@ build:
 	cat src/vendor/jquery/dist/jquery.min.js src/vendor/bootstrap/dist/js/bootstrap.min.js src/js/*.js | uglifyjs -o dist/js/script.min.js
 
 	#Copy all images to dist/img directory
-	cd src/img && find . -type f -name "*.png" -name "*.gif" -name "*.jpg" -name "*.jpeg" -exec rsync -Rv "{}" ../../dist/img/ \;
+	cd src/img && find . -type f -a \( -name "*.png" -o -name "*.gif" -o -name "*.jpg" -o -name "*.jpeg" \) -exec rsync -Rv "{}" ../../dist/img/ \;
 
 	#Copy all fonts to dist/fonts
 	cp -R src/vendor/bootstrap/dist/fonts/* dist/fonts/
