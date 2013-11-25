@@ -47,3 +47,19 @@ or
 
 	$ make
 
+##Deploy Build to Development Server
+In the version (>= 0.0.2) it is possible to deploy every build to a development server using rsync. All you need is to generate the SSH keys for the server you want to deploy the build to and edit the Makefile to match the server config.
+
+To generate the SSH key to a specific user:
+
+	$ ssh-keygen -f user
+
+After that, you need to add this key to the authorized_keys file in the server:
+
+	$ ssh-copy-id -i /path/to/user/key server.remote.address
+
+You now should be able to login using the SSH key without having to enter the user password:
+
+	$ ssh -i /path/to/user/key user@server.remote.address
+
+Now edit the Makefile switching "sync-build" to true and adjusting the variables "remote-host", "remote-dir" and "certificate-file". After that, everytime you build the layout, it will be deployed to the server you specified using rsync.

@@ -1,3 +1,9 @@
+sync-build = false
+remote-host = user@server.remote.address
+remote-dir = /var/www/domain/httpdocs/
+certificate-file = /full/path/to/ssh/key/file (IT MUST BE THE FULL PATH)
+rsync-exclude = --exclude '.svn' --exclude '.git' --exclude '.hg' --exclude '.DS_Store'
+
 bootstrap-version = 3.0.2
 fontawesome-version = 4.0.3
 jquery-version = 1.10.2
@@ -21,9 +27,16 @@ build:
 	cd src/img && find . -type f -a \( -name "*.png" -o -name "*.gif" -o -name "*.jpg" -o -name "*.jpeg" \) -exec rsync -Rv "{}" ../../dist/img/ \;
 
 	#Copy all fonts to dist/fonts
-	cp -R src/vendor/bootstrap/dist/fonts/* dist/fonts/
-	cp -R src/vendor/font-awesome/fonts/* dist/fonts/
-	cp -R src/fonts/* dist/fonts/
+	cp -R src/vendor/bootstrap/dist/fonts/* dist/fonts/ 2> /dev/null || :
+	cp -R src/vendor/font-awesome/fonts/* dist/fonts/ 2> /dev/null || :
+	cp -R src/fonts/* dist/fonts/ 2> /dev/null || :
+
+ifeq ($(sync-build),true)
+
+	#Sync to remote host
+	rsync -rtvz $(rsync-exclude) -e "ssh -i $(certificate-file)" dist/ $(remote-host):$(remote-dir)
+
+endif
 
 
 clean-bootstrap:
