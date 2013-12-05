@@ -1,7 +1,7 @@
 {
 	"name": "layout-base-bootstrap3",
 	"description": "A base package to build a layout based in mobile-first paradigm using Bootstrap 3 + FontAwesome + jQuery.",
-	"version": "0.1.0",
+	"version": "0.0.2",
 	"keywords": ["bootstrap", "bootstrap3", "bootstrap workflow", "bootstrap base", "mobile-first"],
 	"author": 
 	{
