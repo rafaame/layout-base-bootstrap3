@@ -8,36 +8,37 @@ bootstrap-version = 3.0.2
 fontawesome-version = 4.0.3
 jquery-version = 1.10.2
 
+dist-dir = dist/
+
 build:
-	mkdir -p dist/css
-	mkdir -p dist/js
-	mkdir -p dist/img
-	mkdir -p dist/fonts
+	mkdir -p $(dist-dir)/css
+	mkdir -p $(dist-dir)/js
+	mkdir -p $(dist-dir)/img
+	mkdir -p $(dist-dir)/fonts
 
 	#Copy all html files into the dist directory
-	cd src && find . -path ./vendor -prune -o -type f -name "*.html" -exec rsync -Rv "{}" ../dist/ \;
+	cd src && find . -path ./vendor -prune -o -type f -name "*.html" -exec rsync -Rv "{}" ../$(dist-dir)/ \;
 
 	#Compile, concat and compress the LESS into a single style.min.css file to reduce HTTP requests
-	recess src/less/style.less --compress > dist/css/style.min.css
+	recess src/less/style.less --compress > $(dist-dir)/css/style.min.css
 
 	#Concat and compress all Javascripts into a single script.min.js file to reduce HTTP requests
-	cat src/vendor/jquery/dist/jquery.min.js src/vendor/bootstrap/dist/js/bootstrap.min.js src/js/*.js | uglifyjs -o dist/js/script.min.js
+	cat src/vendor/jquery/dist/jquery.min.js src/vendor/bootstrap/dist/js/bootstrap.min.js src/js/*.js | uglifyjs -o $(dist-dir)/js/script.min.js
 
 	#Copy all images to dist/img directory
-	cd src/img && find . -type f -a \( -name "*.png" -o -name "*.gif" -o -name "*.jpg" -o -name "*.jpeg" \) -exec rsync -Rv "{}" ../../dist/img/ \;
+	cd src/img && find . -type f -a \( -name "*.png" -o -name "*.gif" -o -name "*.jpg" -o -name "*.jpeg" \) -exec rsync -Rv "{}" ../../$(dist-dir)/img/ \;
 
 	#Copy all fonts to dist/fonts
-	cp -R src/vendor/bootstrap/dist/fonts/* dist/fonts/ 2> /dev/null || :
-	cp -R src/vendor/font-awesome/fonts/* dist/fonts/ 2> /dev/null || :
-	cp -R src/fonts/* dist/fonts/ 2> /dev/null || :
+	cp -R src/vendor/bootstrap/dist/fonts/* $(dist-dir)/fonts/ 2> /dev/null || :
+	cp -R src/vendor/font-awesome/fonts/* $(dist-dir)/fonts/ 2> /dev/null || :
+	cp -R src/fonts/* $(dist-dir)/fonts/ 2> /dev/null || :
 
 ifeq ($(sync-build),true)
 
 	#Sync to remote host
-	rsync -rtvz $(rsync-exclude) -e "ssh -i $(certificate-file)" dist/ $(remote-host):$(remote-dir)
+	rsync -rtvz $(rsync-exclude) -e "ssh -i $(certificate-file)" $(dist-dir)/ $(remote-host):$(remote-dir)
 
 endif
-
 
 clean-bootstrap:
 	rm -rf src/vendor/bootstrap
