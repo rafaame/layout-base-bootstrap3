@@ -55,6 +55,8 @@ clean:
 configure-bootstrap: clean-bootstrap
 	echo "You are now going to clone Twitter's Bootstrap $(bootstrap-version) repository."
 
+	mkdir -p src/vendor
+
 	#Clone the Bootstrap repository and install the required dependencies to build it
 	cd src/vendor && git clone https://github.com/twbs/bootstrap.git bootstrap --branch v$(bootstrap-version)
 	cd src/vendor/bootstrap && npm install
@@ -62,12 +64,16 @@ configure-bootstrap: clean-bootstrap
 configure-fontawesome: clean-fontawesome
 	echo "You are now going to clone Font-Awesome $(fontawesome-version) repository."
 
+	mkdir -p src/vendor
+
 	#Clone the Font-Awesome repository and install the required dependencies to build it
 	cd src/vendor && git clone https://github.com/FortAwesome/Font-Awesome.git font-awesome --branch v$(fontawesome-version)
 	cd src/vendor/font-awesome && bundle install && npm install
 
 configure-jquery: clean-jquery
 	echo "You are now going to clone jQuery $(jquery-version) repository."
+
+	mkdir -p src/vendor
 
 	#Clone the jQuery repository and install the required dependencies to build it
 	cd src/vendor && git clone https://github.com/jquery/jquery.git jquery --branch $(jquery-version)
