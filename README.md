@@ -4,6 +4,8 @@
 A base package to build a layout based in mobile-first paradigm using Bootstrap 3.0.2 + RECESS + FontAwesome 4.0.3 + jQuery 1.10.2. It provides a Makefile to automate the build of the layout and its dependencies.
 
 ##Changelog
+- v0.0.3 - started using LESS instead of RECESS;
+         - Updated Bootstrap to version 3.1.1, FontAwesome to version 4.1.0 and jQuery to 1.11.1
 - v0.0.2 - added the possibility to deploy the built layout to a remote server
 - v0.0.1 - initial build using Bootstrap 3.0.2, FontAwesome 4.0.3 and jQuery 1.10.2
 

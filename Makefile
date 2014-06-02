@@ -4,11 +4,20 @@ remote-dir = /var/www/domain/httpdocs/
 certificate-file = /full/path/to/ssh/key/file (IT MUST BE THE FULL PATH)
 rsync-exclude = --exclude '.svn' --exclude '.git' --exclude '.hg' --exclude '.DS_Store'
 
-bootstrap-version = 3.0.2
-fontawesome-version = 4.0.3
-jquery-version = 1.10.2
+bootstrap-version = 3.1.1
+fontawesome-version = 4.1.0
+jquery-version = 1.11.1
 
 dist-dir = dist/
+
+sync: build
+
+ifeq ($(sync-build),true)
+
+	#Sync to remote host
+	rsync -rtvz $(rsync-exclude) -e "ssh -i $(certificate-file)" $(dist-dir)/ $(remote-host):$(remote-dir)
+
+endif
 
 build:
 	mkdir -p $(dist-dir)/css
@@ -20,10 +29,12 @@ build:
 	cd src && find . -path ./vendor -prune -o -type f -name "*.html" -exec rsync -Rv "{}" ../$(dist-dir)/ \;
 
 	#Compile, concat and compress the LESS into a single style.min.css file to reduce HTTP requests
-	recess src/less/style.less --compress > $(dist-dir)/css/style.min.css
+	lessc src/less/style.less --compress $(dist-dir)/css/style.min.css.tmp
+	cat $(dist-dir)/css/style.min.css.tmp src/css/*.css > $(dist-dir)/css/style.min.css 2> /dev/null || :
+	rm -r $(dist-dir)/css/style.min.css.tmp
 
 	#Concat and compress all Javascripts into a single script.min.js file to reduce HTTP requests
-	cat src/vendor/jquery/dist/jquery.min.js src/vendor/bootstrap/dist/js/bootstrap.min.js src/js/*.js | uglifyjs -o $(dist-dir)/js/script.min.js
+	cat src/vendor/jquery/dist/jquery.js src/vendor/bootstrap/dist/js/bootstrap.js src/js/*.js | uglifyjs -o $(dist-dir)/js/script.min.js
 
 	#Copy all images to dist/img directory
 	cd src/img && find . -type f -a \( -name "*.png" -o -name "*.gif" -o -name "*.jpg" -o -name "*.jpeg" \) -exec rsync -Rv "{}" ../../$(dist-dir)/img/ \;
@@ -32,13 +43,6 @@ build:
 	cp -R src/vendor/bootstrap/dist/fonts/* $(dist-dir)/fonts/ 2> /dev/null || :
 	cp -R src/vendor/font-awesome/fonts/* $(dist-dir)/fonts/ 2> /dev/null || :
 	cp -R src/fonts/* $(dist-dir)/fonts/ 2> /dev/null || :
-
-ifeq ($(sync-build),true)
-
-	#Sync to remote host
-	rsync -rtvz $(rsync-exclude) -e "ssh -i $(certificate-file)" $(dist-dir)/ $(remote-host):$(remote-dir)
-
-endif
 
 clean-bootstrap:
 	rm -rf src/vendor/bootstrap
