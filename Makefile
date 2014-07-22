@@ -1,7 +1,7 @@
 sync-build = false
 remote-host = user@server.remote.address
 remote-dir = /var/www/domain/httpdocs/
-certificate-file = /full/path/to/ssh/key/file (IT MUST BE THE FULL PATH)
+certificate-file = /full/path/to/ssh/public/key/file (IT MUST BE THE FULL PATH)
 rsync-exclude = --exclude '.svn' --exclude '.git' --exclude '.hg' --exclude '.DS_Store'
 
 bootstrap-version = 3.1.1
