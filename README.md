@@ -1,9 +1,10 @@
 #[Layout Base Package with Bootstrap 3]
-###a layout base package based in Bootstrap 3 and RECESS
+###a layout base package based in Bootstrap 3, FontAwesome and jQuery
 
-A base package to build a layout based in mobile-first paradigm using Bootstrap 3.0.2 + RECESS + FontAwesome 4.0.3 + jQuery 1.10.2. It provides a Makefile to automate the build of the layout and its dependencies.
+A base package to build a layout based in mobile-first paradigm using Bootstrap 3, LESS, FontAwesome and jQuery. It uses [Gulp](http://gulpjs.com/) to automate the build of the layout and its dependencies.
 
 ##Changelog
+- v1.0.0 - started using [Gulp](http://gulpjs.com/) instead of make;
 - v0.0.3 - started using LESS instead of RECESS;
          - Updated Bootstrap to version 3.1.1, FontAwesome to version 4.1.0 and jQuery to 1.11.1
 - v0.0.2 - added the possibility to deploy the built layout to a remote server
@@ -11,7 +12,7 @@ A base package to build a layout based in mobile-first paradigm using Bootstrap 
 
 ##Versioning
 
-Font Awesome will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered with the following format:
+This project will be maintained under the Semantic Versioning guidelines as much as possible. Releases will be numbered with the following format:
 
 `<major>.<minor>.<patch>`
 
@@ -28,41 +29,14 @@ For more information on SemVer, please visit http://semver.org.
 - GitHub: https://github.com/rafaame
 - Website: http://rafaa.me
 
-##Installing RECESS and UglifyJS
-This package uses RECESS to process the .less files of the layout and UglifyJS to minify the .js files. To install these dependencies simply run:
+##Installing needed dependencies
+To install the dependencies simply run:
 
 	$ npm install
 
 **Unfamiliar with `npm`? Don't have node installed?** That's a-okay. npm stands for [node packaged modules](http://npmjs.org/) and is a way to manage development dependencies through node.js. [Download and install node.js](http://nodejs.org/download/) before proceeding.
 
-##Building for the First Time
-In order to build the layout and its dependencies for the first time, you'll need to configure the dependencies first. Simply run:
-
-    $ make configure
-    $ make build-all
-
-##Building the Layout
-After you have configured and built all the dependencies and the layout for the first time, there's no need to rebuilt the dependencies again. In order to build only the layout, simply run:
-
-	$ make build
-
-or
-
-	$ make
-
 ##Deploy Build to Development Server
-In the version (>= 0.0.2) it is possible to deploy every build to a development server using rsync. All you need is to have access to the server you want to deploy the build to through a SSH public key and edit the Makefile to match the server config.
+It is possible to deploy every build to a development server using SFTP. All you need is to have access to the server you want to deploy the build to via SSH and edit the config.json (actually you need to copy content from config.json.dist and create the config.json file) to match the server config.
 
-To generate the SSH key pair and put it in a specific directory:
-
-	$ ssh-keygen -f /path/to/ssh/key/pair
-
-The command above will generate a pair of SSH keys (a public key and a private key). The private key must be authorized in the server while the public key will be used to authenticate in the server. In order to add the private key to the authorized keys in the server issue the following command:
-
-	$ ssh-copy-id -i /path/to/ssh/key/pair user@server.remote.address
-
-You now should be able to login using the SSH public key without having to enter the user password:
-
-	$ ssh -i /path/to/ssh/key/pair.pub user@server.remote.address
-
-Now edit the Makefile switching "sync-build" to true and adjusting the variables "remote-host", "remote-dir" and "certificate-file". After that, everytime you build the layout, it will be deployed to the server you specified using rsync.
+After that, everytime you build the layout, the files in the 'distDir' that were changed will be deployed to the server you specified using SFTP.

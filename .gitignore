@@ -28,9 +28,9 @@ nbproject
 *.komodoproject
 .komodotools
 
+# Config files
+config.json
+
 # Folders to ignore
 node_modules
-src/vendor/bootstrap
-src/vendor/font-awesome
-src/vendor/jquery
 dist

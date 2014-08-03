@@ -1,0 +1,29 @@
+{
+
+	"layout":
+	{
+
+		"dir": ".",
+		"distDir": "dist",
+
+		"cleanBeforeBuild": false,
+
+		"syncOnBuild": true,
+		"remotePath": "/replace/default/remotePath"
+
+	},
+
+	"sftp" :
+	{
+
+		"host": "",
+		"port": "22",
+
+		"user": "",
+		"pass": "",
+
+		"remotePath": "/var/www/"
+
+	}
+
+}

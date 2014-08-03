@@ -1,22 +1,42 @@
 {
+
 	"name": "layout-base-bootstrap3",
-	"description": "A base package to build a layout based in mobile-first paradigm using Bootstrap 3 + FontAwesome + jQuery.",
-	"version": "0.0.3",
+	"description": "A base package to build a layout based in mobile-first paradigm using Bootstrap 3 + FontAwesome 4 + jQuery 2.",
+	"version": "1.0.0",
 	"keywords": ["bootstrap", "bootstrap3", "bootstrap workflow", "bootstrap base", "mobile-first"],
-	"author": 
+	"author":
 	{
+
 	    "name": "Rafael Andreatta",
 	    "email": "eu@rafaa.me",
 	    "web": "http://rafaa.me/"
+
   	},
-  	"repository": 
+
+  	"repository":
   	{
+
 	    "type": "git",
 	    "url": "https://github.com/rafaame/layout-base-bootstrap3.git"
+
 	},
-	"devDependencies": 
+
+	"devDependencies":
 	{
-		"less": ">= 1.7.0",
-		"uglify-js": ">= 2.4.3"
+
+		"bootstrap": "3.*",
+		"font-awesome": "4.*",
+		"jquery": "2.*",
+		"rimraf": "2.2.*",
+		"gulp": "3.8.*",
+		"gulp-rename": "1.2.*",
+		"gulp-concat": "2.3.*",
+		"gulp-less": "1.3.*",
+		"gulp-minify-css": "0.3.*",
+		"gulp-uglifyjs": "0.4.*",
+		"gulp-sftp": "0.1.*",
+		"gulp-changed": "0.4.*"
+
 	}
+
 }
