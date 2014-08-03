@@ -149,7 +149,14 @@ gulp.task('build-js', ['clean'], function()
 {
 
 	var stream = gulp
-					.src(config.layout.dir + '/src/js/**/*.js')
+					.src
+					([
+
+						'node_modules/jquery/dist/jquery.js',
+						'node_modules/bootstrap/dist/js/bootstrap.js',
+						config.layout.dir + '/src/js/**/*.js'
+
+					])
 					.pipe(concat('script.min.js'))
 					.pipe(uglify())
 					.pipe(changed(config.layout.distDir + '/js/', {hasChanged: changed.compareSha1Digest}));
